@@ -18,4 +18,4 @@ COPY . /app/
 # Collect static files
 
 # Run Gunicorn server
-CMD ["gunicorn", "myproject.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "ecommerce.wsgi:application", "--bind", "0.0.0.0:8000"]
