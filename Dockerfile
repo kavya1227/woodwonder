@@ -1,28 +1,22 @@
+# Dockerfile
 FROM python:3.10-slim
 
-# Set the working directory
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    pkg-config \
-    libcairo2-dev \
-    libgirepository1.0-dev \
-    build-essential \
-    libffi-dev \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy requirements and install Python packages
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy project
+COPY . /app/
 
-# Copy the rest of the code
-COPY . .
+# Collect static files
+RUN python manage.py collectstatic --noinput
 
-# Expose Django's default port (8000)
-EXPOSE 8000
-
-# Run the app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Run Gunicorn server
+CMD ["gunicorn", "myproject.wsgi:application", "--bind", "0.0.0.0:8000"]
