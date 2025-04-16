@@ -16,7 +16,6 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . /app/
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
 
 # Run Gunicorn server
 CMD ["gunicorn", "myproject.wsgi:application", "--bind", "0.0.0.0:8000"]
