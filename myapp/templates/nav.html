@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Navbar Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            padding-top: 20px;
+        }
+.sidenav strong {
+            color: white; /* Change the text color to white */
+        }
+        .sidenav a {
+            padding: 16px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+
+            color: #f1f1f1;
+        }
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidenav">
+    <strong><p>PAYMENT</p></strong>
+    <a href="#home">UPI</a>
+    <a href="{% url 'credit' %}">Credit/Debit Card</a>
+    <a href="#about">NetBanking</a>
+    <a href="#contact">Mobile Wallets</a>
+    <a href="#contact">Cash On Delivery</a>
+        <a href="#contact">EMI</a>
+</div>
+
+
+</body>
+</html>
