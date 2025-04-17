@@ -10,7 +10,7 @@ __pycache__/
 *.sqlite3
 
 # Static/Media files
-/media/
+/ecommerce/media/
 staticfiles/
 
 # Secret files
