@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8080
 
 # Run the app (update this if your app entry point is different)
-CMD ["python", "app.py"]
+CMD ["python", "manage.py"]
