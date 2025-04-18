@@ -1,12 +1,17 @@
-# Use Maven to build the app
-FROM maven:3.8.5-openjdk-17 AS build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
+# Use official Python base image
+FROM python:3.11-slim
 
-# Use JDK to run the built jar
-FROM openjdk:17-jdk-slim
+# Set working directory inside container
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+
+# Copy project files into container
+COPY . .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose port (adjust if your app runs on a different port)
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Run the app (update this if your app entry point is different)
+CMD ["python", "app.py"]
