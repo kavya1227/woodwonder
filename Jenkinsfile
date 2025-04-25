@@ -1,46 +1,41 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_TAG = "latest"
-    }
-
     stages {
         stage('Build') {
             steps {
-                script {
-                    echo "Building Docker images..."
-                    sh 'docker build -t ecommerce-backend ./backend'
-                    sh 'docker build -t ecommerce-frontend ./frontend'
-                }
+                echo '🔨 Building Docker image...'
+                bat 'docker build -t woodwonder-app .'
             }
         }
 
         stage('Test') {
             steps {
-                script {
-                    echo "Running tests..."
-                    sh 'docker run --rm ecommerce-backend npm test'  // Modify based on your backend stack
-                }
+                echo '🧪 Running tests (if any)...'
+                // Replace with actual test command, or skip if not needed
+                bat 'echo "No tests defined."'
             }
         }
 
         stage('Deploy') {
             steps {
-                script {
-                    echo "Deploying to Kubernetes..."
-                    sh 'kubectl apply -f k8s/' // assumes you have k8s manifests in a "k8s" folder
-                }
+                echo '🚀 Deploying Docker container...'
+                // Stop and remove existing container if running
+                bat '''
+                docker stop woodwonder-container || echo "No running container"
+                docker rm woodwonder-container || echo "No container to remove"
+                docker run -d -p 8080:80 --name woodwonder-container woodwonder-app
+                '''
             }
         }
     }
 
     post {
-        failure {
-            echo 'Build failed!'
-        }
         success {
-            echo 'Build and deploy succeeded!'
+            echo '✅ Deployment successful!'
+        }
+        failure {
+            echo '❌ Deployment failed!'
         }
     }
 }
