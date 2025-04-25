@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-       stage('Deploy') {
+        stage('Deploy') {
     steps {
         echo '🚀 Deploying Docker container...'
         bat '''
@@ -28,7 +28,6 @@ pipeline {
     }
 }
 
-        }
     }
 
     post {
