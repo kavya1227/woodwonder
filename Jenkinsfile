@@ -22,7 +22,7 @@ pipeline {
                 bat '''
                     docker stop woodwonder-container || echo "No running container"
                     docker rm woodwonder-container || echo "No container to remove"
-                    docker run -d -p 8081:8082 --name woodwonder-container woodwonder-app
+                    docker run -d -p 8082:8000 --name woodwonder-container woodwonder-app
                 '''
             }
         }
