@@ -17,16 +17,17 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                echo '🚀 Deploying Docker container...'
-                // Stop and remove existing container if running
-                bat '''
-                docker stop woodwonder-container || echo "No running container"
-                docker rm woodwonder-container || echo "No container to remove"
-                docker run -d -p 8080:80 --name woodwonder-container woodwonder-app
-                '''
-            }
+       stage('Deploy') {
+    steps {
+        echo '🚀 Deploying Docker container...'
+        bat '''
+            docker stop woodwonder-container || echo "No running container"
+            docker rm woodwonder-container || echo "No container to remove"
+            docker run -d -p 8081:8000 --name woodwonder-container woodwonder-app
+        '''
+    }
+}
+
         }
     }
 
