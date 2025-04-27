@@ -28,16 +28,5 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            mail to: '2200031107@kluniversity.in',
-                 subject: "Deployment Success - Woodwonder",
-                 body: "✅ Jenkins has successfully deployed your application!"
-        }
-        failure {
-            mail to: '2200031107@kluniversity.in',
-                 subject: "Deployment Failed - Woodwonder",
-                 body: "❌ Jenkins failed to deploy your app. Check the logs."
-        }
-    }
+
 }
